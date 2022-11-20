@@ -106,57 +106,58 @@ class AddAPostViewController: UIViewController, UIImagePickerControllerDelegate,
 extension AddAPostViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            guard let location = locations.last else { return }
-            
-            let lat = location.coordinate.latitude
-            let lng = location.coordinate.longitude
-            
-            print(lat)
-            print(lng)
-            
-            getAddressFromLocation(location: location)
-            
-        }
+        guard let location = locations.last else { return }
         
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            print(error)
-        }
+        let lat = location.coordinate.latitude
+        let lng = location.coordinate.longitude
         
-        func getAddressFromLocation( location: CLLocation){
+        print(lat)
+        print(lng)
+        
+        getAddressFromLocation(location: location)
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    func getAddressFromLocation( location: CLLocation){
+        
+        let clGeoCoder = CLGeocoder()
+        
+        clGeoCoder.reverseGeocodeLocation(location) { placeMarks, error in
             
-            let clGeoCoder = CLGeocoder()
-            
-            clGeoCoder.reverseGeocodeLocation(location) { placeMarks, error in
-                
-                if error != nil {
-                    print(error?.localizedDescription)
-                    return
-                }
-                var address = ""
-                guard let place = placeMarks?.first else { return }
-                
-                if place.name != nil {
-                    address += place.name! +  ", "
-                }
-                
-                if place.locality != nil {
-                    address += place.locality! +  ", "
-                }
-                if place.subLocality != nil {
-                    address += place.subLocality! +  ", "
-                }
-                
-                if place.postalCode != nil {
-                    address += place.postalCode! +  ", "
-                }
-                
-                if place.country != nil {
-                    address += place.country!
-                }
-                
-                print(address)
-                self.addressText = address
-                
+            if error != nil {
+                print(error?.localizedDescription)
+                return
             }
+            var address = ""
+            guard let place = placeMarks?.first else { return }
+            
+            if place.name != nil {
+                address += place.name! +  ", "
+            }
+            
+            if place.locality != nil {
+                address += place.locality! +  ", "
+            }
+            
+            if place.subLocality != nil {
+                address += place.subLocality! +  ", "
+            }
+            
+            if place.postalCode != nil {
+                address += place.postalCode! +  ", "
+            }
+            
+            if place.country != nil {
+                address += place.country!
+            }
+            
+            print(address)
+            self.addressText = address
+            
         }
+    }
 }
