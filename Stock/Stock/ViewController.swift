@@ -38,11 +38,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getStocks() {
         let url = "https://us-central1-whatsapp-analytics-2de0e.cloudfunctions.net/app/allstocks"
 
-//        SwiftSpinner.show("please wait")
+        SwiftSpinner.show("please wait")
         
         self.stocks = [Stock]()
         AF.request(url).responseJSON { responseData in
-//            SwiftSpinner.hide()
+            SwiftSpinner.hide()
             print(responseData)
             if responseData.error != nil {
                 print(responseData.error!)
