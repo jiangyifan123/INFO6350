@@ -76,7 +76,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.posts.append("temperature:\(temp)F,\(condition)")
             }
             self.tblView.reloadData()
-        }    }
+        }
+        
+    }
     
     @IBAction func getWeatherAction(_ sender: Any) {
         guard let city = txtCity.text else {return}
