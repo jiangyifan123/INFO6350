@@ -71,9 +71,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "segueDetails" {
             let secondVC = segue.destination as! DetailsViewController
             let stock = stocks[clickIdex]
-            
-            secondVC.companyName = stock.companyName
-            secondVC.price = stock.price
             secondVC.symbol = stock.symbol
         }
     }
